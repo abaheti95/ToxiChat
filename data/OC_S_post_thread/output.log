@@ -1,0 +1,26 @@
+2021-04-20 21:39:14,703 [INFO] DATASET ROWS = 12623
+2021-04-20 21:39:14,747 [INFO] Conversation Data = 2000
+2021-04-20 21:39:14,747 [INFO] Total number of conversations = 2000
+2021-04-20 21:39:14,750 [INFO] total unique posts = 1683/2000
+2021-04-20 21:39:14,750 [INFO] post with max number of threads = 24
+2021-04-20 21:39:14,751 [INFO] Number of posts with just one thread = 1550
+2021-04-20 21:39:14,755 [INFO] Total train unique posts = 1159/1400
+2021-04-20 21:39:14,755 [INFO] Total dev unique posts = 261/300
+2021-04-20 21:39:14,755 [INFO] Number of posts common in train and dev = 0
+2021-04-20 21:39:14,756 [INFO] Total test unique posts = 263/300
+2021-04-20 21:39:14,756 [INFO] Number of posts common in train and test = 0
+2021-04-20 21:39:14,756 [INFO] Train Segment stats:
+2021-04-20 21:39:14,765 [INFO] Total utterances = 6011
+2021-04-20 21:39:14,765 [INFO] Off label stats = Counter({0: 4679, 1: 1332})
+2021-04-20 21:39:14,766 [INFO] Stance label stats = Counter({0: 7593, 1: 814, -1: 237})
+2021-04-20 21:39:14,766 [INFO] Dev Segment stats:
+2021-04-20 21:39:14,768 [INFO] Total utterances = 1308
+2021-04-20 21:39:14,768 [INFO] Off label stats = Counter({0: 1006, 1: 302})
+2021-04-20 21:39:14,768 [INFO] Stance label stats = Counter({0: 1734, 1: 162, -1: 36})
+2021-04-20 21:39:14,768 [INFO] Test Segment stats:
+2021-04-20 21:39:14,770 [INFO] Total utterances = 1304
+2021-04-20 21:39:14,770 [INFO] Off label stats = Counter({0: 1034, 1: 270})
+2021-04-20 21:39:14,770 [INFO] Stance label stats = Counter({0: 1672, 1: 194, -1: 50})
+2021-04-20 21:39:14,770 [INFO] train conversations = 1400
+2021-04-20 21:39:14,770 [INFO] dev conversations = 300
+2021-04-20 21:39:14,770 [INFO] test conversations = 300

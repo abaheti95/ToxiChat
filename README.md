@@ -6,7 +6,18 @@ Code and data for the EMNLP 2021 paper ["Just Say No: Analyzing the Stance of Ne
 
 ## Data  
 
-The train, dev, test split of the data are given in `data/OC_S_post_thread/` folder
+The train, dev, test split of the data are provided in `data/OC_S_post_thread/` folder as `.csv` files. Here is how each csv file is organized.
+
+```
+utterance = human or chatbot response
+uOff = 0 - safe or 1 - offensive indicator label for each utterance
+uOffTarget = a set of target groups if uOff==1
+u1stance = stance of current utterance towards 1st utterance (0 - neutral, 1 - agree, -1 - disagree)
+u2stance = stance of current utterance towards 2st utterance
+u3stance = stance of current utterance towards 3st utterance (note: this column is left blank when 3rd utterance is not available i.e. number of reddit utterances = 2)
+resp_coherence = 0 - incoherent or 1 - coherent indicator label for each chatbot response.
+```
+To load and use the data please use `get_conversation_data_from_OC_S_file(OC_S_file)` function from `OC_S_utils.py` file. 
 
 ## Offensive and Stance Classification models
 
@@ -145,7 +156,7 @@ Control labels [OFF]/[SAFE] and [AGREE]/[NO-STANCE]
 @article{baheti2021just,
   title={Just Say No: Analyzing the Stance of Neural Dialogue Generation in Offensive Contexts},
   author={Baheti, Ashutosh and Sap, Maarten and Ritter, Alan and Riedl, Mark},
-  journal={arXiv preprint arXiv:2108.11830},
   year={2021}
+  booktitle={EMNLP},
 }
 ```

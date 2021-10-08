@@ -134,6 +134,8 @@ CTG using control labels
 ## Generate Responses on test set using CTG models  
 Control labels [OFF]/[SAFE] and [AGREE]/[NO-STANCE]  
 
+We extracted 1000 offensive test threads from reddit using high-precision predictions from our classifiers. The first 500 threads contain final responses as offensive and last 500 threads contain final response as safe. The threads and their predictions are present in a pickle file at `data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/test_threads.pkl`  
+
 - Baseline No Control  
 	`python generate_CTG_responses_and_make_off_and_stance_predictions.py -m microsoft/DialoGPT-medium -d data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/test_threads.pkl -sm saved_models/OC_S_post_thread/DGPT_medium_OC_S_stance_e16_focal_lr5e_5 -om saved_models/OC_S_post_thread/DGPT_medium_OC_S_and_SBF_offensive_e3 -n 1 -bs 10 -o results/CTG/DGPT/test_threads_replies_and_off_stance_preds.pkl`  
 - DAPT Offensive Control Safe Subset (DAPT - [S])  

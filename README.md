@@ -113,6 +113,8 @@ We will first create a dataset of posts and comments from all of the reddit. The
 ### Create CTG fine-tuning dataset from post_comment threads with stance and offensive labels  
 `python get_fine_tuning_subsets_from_label_predicted_convs.py -i data/reddit_dumps/post_comment_threads/all_mitigating_sample/splits/predictions_both/merged_split_predictions.pkl -o data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/`  
 
+Alternatively, you can download the `/final/` folder's fine-tuning sampled threads from [here](https://mega.nz/file/ccwwHSTI#fOOYfM494KqwK6ZaCe9BiuPGZhUKX3QF3CqU0mCTCb8).
+
 ## Fine-tune DGPT medium model for different CTG experiments 
 
 ### DAPT  

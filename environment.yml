@@ -158,12 +158,10 @@ dependencies:
     - cymem==2.0.5
     - cython==0.29.23
     - datasets==1.6.1
-    - de-core-news-sm==3.0.0
     - dill==0.3.3
     - docformatter==1.4
     - docutils==0.15.2
     - emoji==1.2.0
-    - en-core-web-sm==3.0.0
     - flake8==3.9.1
     - flake8-bugbear==21.4.3
     - fsspec==2021.4.0
@@ -241,7 +239,7 @@ dependencies:
     - thinc==8.0.1
     - toml==0.10.2
     - torchtext==0.8.1
-    - tqdm==4.36.1
+    - tqdm
     - typer==0.3.2
     - unidecode==1.1.2
     - untokenize==0.1.1

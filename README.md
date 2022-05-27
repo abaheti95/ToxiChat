@@ -84,18 +84,18 @@ To load and use the data please use `get_conversation_data_from_OC_S_file(OC_S_f
 #### NBOW model
 We will train NBOW single sentence classification model initialized with GloVe embedding  
 To train NBOW model, you'd need to download and extract [GloVe vectors](https://nlp.stanford.edu/data/glove.6B.zip) into `data/GloVe/` dir and then run `python convert_glove_text_vectors_to_pkl.py` from within the directory
-- Training offensive classifier on OC_S_post_thread data  
+- Training offensive classifier on ToxiChat data. (OC_S = ToxiChat)  
 	`python experiments/train_and_evaluate_NBOW_offensive_classifier.py -g data/GloVe/glove.6B.300d.pkl -td "{'OC_S':'data/OC_S_post_thread/'}" -s saved_models/OC_S_post_thread/NBOW_OC_S_offensive_e30 -o results/OC_S_post_thread/NBOW_OC_S_offensive_e30 -e 30 -dv 1 -t`
 
 #### BERT large cased model
-- Training offensive classifier on OC_S_post_thread data  
+- Training offensive classifier on ToxiChat data  
 	`python experiments/train_and_evaluate_BERT_offensive_classifier.py -e 8 -td "{'OC_S':'data/OC_S_post_thread/'}" -s saved_models/OC_S_post_thread/BERT_large_OC_S_offensive_e8 -o results/OC_S_post_thread/BERT_large_OC_S_offensive_e8 -t`
 
 ### Full Sequence Offensive Classification (DGPT)  
 We will train a DGPT model offensive classifier for the entire comment thread with EOS tokens used for sentence representations.  
-- Training offensive classifier on OC_S_post_thread data  
+- Training offensive classifier on ToxiChat data  
 	`python experiments/train_and_evaluate_DGPT_offensive_classifier.py -e 12 -td "{'OC_S':'data/OC_S_post_thread/'}" -s saved_models/OC_S_post_thread/DGPT_medium_OC_S_offensive_e12 -o results/OC_S_post_thread/DGPT_medium_OC_S_offensive_e12 -t`  
-- Training offensive classifier on OC_S_post_thread + SBF data  
+- Training offensive classifier on ToxiChat + [Social Bias Frames](https://homes.cs.washington.edu/~msap/social-bias-frames/) (SBF) data  
 	`python experiments/train_and_evaluate_DGPT_offensive_classifier.py -e 3 -td "{'OC_S':'data/OC_S_post_thread/', 'SBF':'data/SBF'}" -s saved_models/OC_S_post_thread/DGPT_medium_OC_S_and_SBF_offensive_e3 -o results/OC_S_post_thread/DGPT_medium_OC_S_and_SBF_offensive_e3 -t -dv 4`  
 
 
@@ -105,19 +105,19 @@ We will train a DGPT model offensive classifier for the entire comment thread wi
 
 #### NBOW model
 We will train NBOW Sentence Pair classification model initialized with GloVe embedding  
-- Training Stance classifier on OC_S_post_thread_data (cross entropy)  
+- Training Stance classifier on ToxiChat data (cross entropy)  
 	`python experiments/train_and_evaluate_NBOW_pairwise_stance_classifier.py -g data/GloVe/glove.6B.300d.pkl -td "{'OC_S':'data/OC_S_post_thread/'}" -s saved_models/OC_S_post_thread/NBOW_OC_S_pairwise_stance_e30 -o results/OC_S_post_thread/NBOW_OC_S_pairwise_stance_e30 -e 30 -dv 1 -t`  
 
 #### BERT large cased model
 We will train Bert Sentence Pair classification model  
-- Training Stance classifier on OC_S_post_thread_data (cross entropy)  
+- Training Stance classifier on ToxiChat data (cross entropy)  
 	`python experiments/train_and_evaluate_BERT_pairwise_stance_classifier.py -e 8 -td "{'OC_S':'data/OC_S_post_thread/'}" -s saved_models/OC_S_post_thread/BERT_large_OC_S_pairwise_stance_e8 -o results/OC_S_post_thread/BERT_large_OC_S_pairwise_stance_e8 -t`  
 
 ### Full Sequence Stance Classification  
 We will train a DGPT model stance classifier for the entire comment thread with EOS tokens used for sentence representations.  
-- Training Stance classifier on OC_S_post_thread_data (cross entropy)  
+- Training Stance classifier on ToxiChat data (cross entropy)  
 	`python experiments/train_and_evaluate_DGPT_stance_classifier.py -e 12 -td "{'OC_S':'data/OC_S_post_thread/'}" -s saved_models/OC_S_post_thread/DGPT_medium_OC_S_stance_e12 -o results/OC_S_post_thread/DGPT_medium_OC_S_stance_e12 -t`  
-- Training Stance classifier on OC_S_post_thread_data (Focal Loss)  
+- Training Stance classifier on ToxiChat data (Focal Loss)  
 	`python experiments/train_and_evaluate_DGPT_stance_classifier.py -e 16 -td "{'OC_S':'data/OC_S_post_thread/'}" -s saved_models/OC_S_post_thread/DGPT_medium_OC_S_stance_e16_focal_lr5e_5 -o results/OC_S_post_thread/DGPT_medium_OC_S_stance_e16_focal_lr5e_5 -foc -lr 5e-5 -t`  
 
 To download pretrained DGPT offensive and Stance (Focal) classifiers use the following [link](https://mega.nz/file/ANhEWDiA#ky-f6HNfmgM4-QVpNv_-z5cN1yf4d0Ml6PAEWHnQVCg)
@@ -168,22 +168,22 @@ We will first create a dataset of posts and comments from all of the reddit. The
 #### Merge predictions  
 `python merge_Off_Stance_predictions.py -i data/reddit_dumps/post_comment_threads/all_mitigating_sample/splits/predictions_both/ -n 4 -o data/reddit_dumps/post_comment_threads/all_mitigating_sample/splits/predictions_both/merged_split_predictions.pkl`  
 
-### Create CTG fine-tuning dataset from post_comment threads with stance and offensive labels  
+### Create Control Text Generation fine-tuning dataset from post_comment threads with stance and offensive labels  
 `python get_fine_tuning_subsets_from_label_predicted_convs.py -i data/reddit_dumps/post_comment_threads/all_mitigating_sample/splits/predictions_both/merged_split_predictions.pkl -o data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/`  
 
 Alternatively, you can download the `/final/` folder's fine-tuning sampled threads from [here](https://mega.nz/file/ccwwHSTI#fOOYfM494KqwK6ZaCe9BiuPGZhUKX3QF3CqU0mCTCb8).
 
-## Fine-tune DGPT medium model for different CTG experiments 
+## Fine-tune DGPT medium model for different Control Text Generation experiments 
 
 ### DAPT  
-CTG using DAPT i.e. simply training on the subset we care about  
+Control Text Generation using DAPT i.e. simply training on the subset we care about  
 #### 1. Off Control [SAFE] subset (DAPT - [S])  
 `python experiments/CTG_DGPT_finetuner.py -so [SAFE] -t data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/off_control_train.pkl -d data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/off_control_dev.pkl -s saved_models/CTG/Off_control_DGPT_safe_subset -o results/CTG/Off_control_DGPT_safe_subset -e 3`  
 #### 2. Safe Stance Control [NO-STANCE] subset (DAPT - [S][N])  
 `python experiments/CTG_DGPT_finetuner.py -so [NO-STANCE] -t data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/safe_stance_control_train.pkl -d data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/safe_stance_control_dev.pkl -s saved_models/CTG/safe_stance_control_DGPT_no_stance_subset -o results/CTG/safe_stance_control_DGPT_no_stance_subset -e 3`  
 
 ### ATCON  
-CTG using control labels  
+Control Text Generation using control labels  
 #### 1. Offensive Label Control (ATCON [S])  
 `python experiments/CTG_DGPT_finetuner.py -t data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/off_control_train.pkl -d data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/off_control_dev.pkl -s saved_models/CTG/Off_control_DGPT -o results/CTG/Off_control_DGPT -e 3 -dv 100`   
 #### 2. Stance Label Control (Safe) (ATCON [N])  
@@ -191,7 +191,7 @@ CTG using control labels
 #### 3. Both Offensive and Stance Label Control (both) (ATCON [S][N])  
 `python experiments/CTG_DGPT_finetuner.py -t data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/both_control_train.pkl -d data/reddit_dumps/post_comment_threads/CTG_experiments/all_mitigating_sample/final/both_control_dev.pkl -s saved_models/CTG/both_control_DGPT -o results/CTG/both_control_DGPT -e 3`  
 
-## Generate Responses on evaluation test threads using CTG models  
+## Generate Responses on evaluation test threads using Control Text Generation models  
 Control labels [OFF]/[SAFE] and [AGREE]/[NO-STANCE]  
 
 We extracted 1000 offensive test threads from reddit using high-precision predictions from our classifiers. The first 500 threads contain offensive final response and last 500 threads contain safe final response. The threads and their classifier predictions are present in a pickle file at `data/test_threads.pkl`  
@@ -210,7 +210,7 @@ We extracted 1000 offensive test threads from reddit using high-precision predic
 	`python generate_CTG_responses_and_make_off_and_stance_predictions.py -m saved_models/CTG/both_control_DGPT -p [SAFE][NO-STANCE] -d data/test_threads.pkl -sm saved_models/OC_S_post_thread/DGPT_medium_OC_S_stance_e16_focal_lr5e_5 -om saved_models/OC_S_post_thread/DGPT_medium_OC_S_and_SBF_offensive_e2 -n 1 -bs 10 -o results/CTG/both_control_DGPT/both_control_test_threads_safe_no_stance_replies_and_off_stance_preds.pkl`  
 
 
-## Automatic evalution of CTG test predictions  
+## Automatic evalution of Control Text Generation test predictions  
 This script will automatically evaluate all the generated responses from different models and save the metrics into on readable csv file.  
 `python automatic_evaluation_of_CTG_test_predictions.py -mg "[('DGPT medium baseline', 'results/CTG/DGPT/test_threads_replies_and_off_stance_preds.pkl'), ('ATCON - [S]', 'results/CTG/Off_control_DGPT/Off_control_test_threads_safe_replies_and_off_stance_preds.pkl'), ('ATCON [N]', 'results/CTG/safe_stance_control_DGPT/safe_stance_control_test_threads_no_stance_replies_and_off_stance_preds.pkl'), ('ATCON [N][S]', 'results/CTG/both_control_DGPT/both_control_test_threads_safe_no_stance_replies_and_off_stance_preds.pkl'), ('DAPT [S]', 'results/CTG/Off_control_DGPT/DAPT_Off_control_safe_subset_test_threads_replies_and_off_stance_preds.pkl'), ('DAPT [S][N]', 'results/CTG/safe_stance_control_DGPT/DAPT_safe_stance_control_no_stance_subset_test_threads_replies_and_off_stance_preds.pkl')]"  -o results/CTG/auto_eval/`  
 
